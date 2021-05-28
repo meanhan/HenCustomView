@@ -8,24 +8,18 @@ import android.util.AttributeSet
 import android.view.View
 import com.hanxu.hencustomview.dp
 
-private val RADIUS = 100.dp
-private val PADDING = 100.dp
-
 class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.parseColor("#FF0000")
     }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val size = ((PADDING + RADIUS) * 2).toInt()
-        // resolveSize() 尺寸修正   resolveSizeAndState()基本不用 被抛弃
-        val width = resolveSize(size, widthMeasureSpec)
-        val height = resolveSize(size, heightMeasureSpec)
-        setMeasuredDimension(width, height)
-    }
+    var radius = 50.dp
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawCircle(PADDING + RADIUS, PADDING + RADIUS, RADIUS, paint)
+        canvas.drawCircle(width / 2f, height / 2f, radius, paint)
     }
 }
